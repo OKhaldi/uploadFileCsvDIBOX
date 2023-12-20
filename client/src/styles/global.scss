@@ -1,0 +1,379 @@
+//Font-size
+$blue: #366a8d;
+$darkblue: #152a38;
+$red: #ff4d4f;
+$green: #2a8800;
+
+:global p {
+  font-size: 16px;
+}
+
+//Input
+:global .ant-input[disabled] {
+  color: rgb(115, 115, 115) !important;
+}
+
+//Button
+
+/* Primary */
+:global .ant-btn-primary,
+:global .ant-btn-primary:focus {
+  background-color: $blue;
+  border-color: $blue;
+}
+:global .ant-btn-primary:hover {
+  background-color: $darkblue;
+  border-color: $darkblue;
+}
+:global .ant-btn-button {
+  background-color: #ffffff;
+  border-radius: 2px;
+  color: rgba(0, 0, 0, 0.65);
+}
+:global .ant-btn-button:hover {
+  border-color: $blue;
+  color: $blue;
+}
+
+:global .buttonPrimaryColor {
+  background-color: $blue;
+  margin-top: 16px;
+  padding: 16px 14px;
+  white-space: nowrap;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  line-height: 22px;
+  text-transform: none;
+}
+:global .buttonPrimaryColor:hover {
+  background-color: $darkblue;
+  color: #ffffff;
+}
+:global .buttonPrimaryColor.disabled:hover {
+  background-color: $darkblue;
+}
+
+/* Secondary */
+
+:global .ant-btn-secondary,
+:global .ant-btn-secondary:focus {
+  border: 1px solid $blue;
+  color: $blue;
+}
+:global .ant-btn-secondary:hover {
+  color: #041e33;
+  border-color: #041e33;
+}
+:global .ant-btn-secondary > span {
+  font-weight: 450;
+}
+/* Dashed */
+
+:global .ant-btn-dashed {
+  color: #041e33;
+}
+
+:global .ant-btn-dashed:hover {
+  color: #041e33;
+  border-color: #041e33;
+  border-style: dashed;
+}
+
+/* Dangerous */
+
+:global .ant-btn-secondary.ant-btn-dangerous {
+  color: $red;
+  background: #fff;
+  border-color: $red;
+}
+
+/* Warning */
+$warningColor: #e88302;
+:global .ant-btn-warning,
+:global .ant-btn-warning:focus {
+  background-color: $warningColor;
+  border-color: $warningColor;
+}
+:global .ant-btn-warning:hover {
+  background-color: darken($warningColor, 5%);
+  border-color: darken($warningColor, 5%);
+}
+
+//Checkbox
+:global .ant-checkbox-wrapper {
+  margin-left: 0 !important;
+}
+:global .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+:global .ant-checkbox:hover .ant-checkbox-inner,
+:global .ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: $blue !important;
+}
+:global .ant-checkbox:hover .ant-checkbox-inner {
+  border-color: $darkblue;
+}
+:global .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $darkblue;
+  border-color: $darkblue;
+}
+
+:global .ant-checkbox-wrapper:hover .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $darkblue;
+}
+
+:global .ant-checkbox-checked::after {
+  border: none;
+}
+
+:global .ant-card-body {
+  .ant-checkbox-inner {
+    width: 24px;
+    height: 24px;
+  }
+}
+:global .ant-card-body .checkbox-ged,
+:global .ant-card-body .tasktab-checkbox {
+  .ant-checkbox-inner {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+:global .ant-divider-centerd {
+  margin-top: 5px;
+}
+
+:global .ant-divider-vertical {
+  margin-top: 5px;
+}
+
+//Tabs popup
+:global .ant-tabs-nav .ant-tabs-tab-active,
+:global .ant-tabs-nav .ant-tabs-tab:hover {
+  color: $blue;
+}
+:global .ant-tabs-ink-bar {
+  background-color: $blue;
+}
+
+// Modal
+:global .ant-modal {
+  position: relative;
+  height: 800px;
+  top: 50px;
+  overflow-x: initial !important;
+  .ant-modal-body {
+    overflow-x: auto;
+    max-height: 700px;
+  }
+}
+
+:global .homePage .ant-collapse-content-box {
+  padding: 0 !important;
+}
+
+:global .homePage .ant-collapse-header {
+  font-size: 18px;
+  font-weight: 500;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 6px;
+}
+
+:global .ant-collapse-header-text h3 {
+  margin: 0px;
+}
+
+@media screen and (max-width: 1440px) {
+  :global .ant-modal {
+    top: 0;
+  }
+}
+
+// Radio
+:global .ant-radio-group {
+  width: 100%;
+}
+
+:global .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+:global .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before,
+:global .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover::before,
+:global .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  background-color: $blue;
+  border-color: $blue;
+}
+
+// Menu
+:global .ant-menu {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  padding: 5px;
+  border-radius: 3px;
+}
+
+// Menu Item
+:global .ant-menu-item:hover {
+  color: #000;
+}
+:global .ant-menu-item-selected {
+  color: #fff;
+}
+
+//Switch
+:global .ant-switch-checked {
+  background-color: $green;
+}
+
+//Stepper
+:global .ant-steps-item-process .ant-steps-item-icon {
+  background: $blue;
+  border-color: $blue;
+}
+
+//Button radio
+:global .ant-radio-checked .ant-radio-inner,
+:global .ant-radio:hover .ant-radio-inner {
+  border-color: $blue;
+}
+:global .ant-radio-checked .ant-radio-inner:after,
+:global .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+  background-color: $blue;
+}
+
+//payment form
+:global body .payment-content form {
+  width: 800px;
+  margin: 0 auto !important;
+}
+
+//Autocomplete
+:global body .ant-select-item-option-selected:not(.ant-select-item-option-disabled),
+:global body .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: $blue;
+  color: white;
+}
+:global body .ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+:global body .ant-select-focused.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: $blue;
+}
+
+// Card-Detail-Info
+:global .itemList {
+  margin: 0;
+}
+:global .itemList > div:first-child {
+  margin-bottom: 3px;
+}
+:global .container-card-detail-info div ul li {
+  margin-bottom: 10px;
+}
+:global .container-card-detail-info div ul li:last-child {
+  margin-bottom: 0;
+}
+:global .container-card-detail-info div ul li p:first-child {
+  margin-top: 3px;
+}
+:global .button-card-detail-info,
+:global .button-card-detail-info:hover {
+  border-radius: 3px;
+}
+
+:global .ant-select-dropdown {
+  z-index: 9999;
+}
+
+:global
+  .ant-dropdown-menu-item.ant-dropdown-menu-item-only-child
+  .ant-dropdown-menu-title-content
+  span:not(.ant-checkbox-inner) {
+  display: inline-block;
+  width: 100%;
+}
+
+// Edition Document
+:global .container-edition-document {
+  padding: 16px;
+}
+
+:global .container-edition-document,
+:global .edition-modal-container {
+  .ant-checkbox-checked .ant-checkbox-inner,
+  .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+    background-color: $blue;
+    border-color: $blue;
+  }
+
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+  .ant-checkbox:hover .ant-checkbox-inner,
+  .ant-checkbox-input:focus + .ant-checkbox-inner,
+  .ant-checkbox-checked::after {
+    border-color: $blue !important;
+  }
+}
+
+:global .container-edition-document:nth-child(2n) {
+  //background-color: rgb(246, 246, 246);
+  border: 1px solid #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-radius: 2px;
+}
+
+// Upload
+:global .ant-upload-list.ant-upload-list-text {
+  max-width: 350px;
+  position: relative;
+}
+
+//Tooltip
+:global .ant-tooltip {
+  max-width: 500px;
+}
+
+//Dropdown
+
+:global .ant-dropdown-link {
+  color: #366a8d;
+}
+
+:global .ant-pagination-item-active a {
+  color: $blue;
+}
+:global .ant-pagination-item-active {
+  border-color: $blue;
+}
+
+:global .ant-pagination.mini .ant-pagination-jump-prev,
+:global .ant-pagination.mini .ant-pagination-jump-next {
+  margin: 0;
+}
+
+:global .error-message {
+  color: red;
+}
+
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+:global .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
+border-bottom: 0px solid transparent !important;
+transition: none !important;
+}
+
+:global .ant-dropdown {
+  z-index: 1090;
+}
+
+// Table
+
+:global .ant-pagination-total-text,
+:global .ant-pagination-options {
+  margin: 0;
+}

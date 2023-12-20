@@ -1,0 +1,169 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.9.20'
+        altimaVersion = '4.0.1'
+    }
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+        maven {
+            url "${System.getenv("ARTIFACTORY_URL")}/artifactory/maven-dev-local/"
+        }
+    }
+    dependencies {
+        classpath("altima:plugin-gradle:4.1.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "3.1.5"
+    id 'io.spring.dependency-management' version '1.1.3'
+    id "org.jetbrains.kotlin.plugin.jpa" version "1.9.20"
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'altima.build.defaults'
+apply plugin: 'altima.build.api'
+
+repositories {
+    // this repo contains the latest opensaml libs
+    maven {
+        url = uri("https://build.shibboleth.net/nexus/content/repositories/releases/")
+    }
+}
+
+altimaBuild {
+    kotlin.set(true)
+}
+
+altimaApi {
+    kotlin.set(true)
+}
+
+springBoot {
+    mainClass = 'com.altima.api.echo.ApiKt'
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ['-Xjsr305=strict']
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    // maybe use https://github.com/vladmihalcea/hibernate-types
+    // more info on saml2 integration can be found here :
+    // https://docs.spring.io/spring-security/reference/servlet/saml2/login/overview.html
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation("com.opencsv:opencsv:3.8")
+    implementation("commons-net:commons-net:3.6")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("altima-lib:bootable:${altimaVersion}") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-thymeleaf'
+    }
+    implementation "altima-lib:logging:${altimaVersion}"
+    runtimeOnly("altima-lib:monitoring:${altimaVersion}")
+    // import dependencies specific to spring web mvc
+    runtimeOnly("altima-lib:monitoring:${altimaVersion}") {
+        capabilities {
+            requireCapability("altima-lib:altima-lib-monitoring-webmvc-support:${altimaVersion}")
+        }
+    }
+    testImplementation("altima-lib:testing:${altimaVersion}")
+
+    runtimeOnly("org.apache.santuario:xmlsec:4.0.0") {
+        because "Filename: xmlsec-2.1.6.jar | Reference: CVE-2021-40690 | CVSS Score: 7.5 | Category: CWE-200 | All versions of Apache Santuario - XML Security for Java prior to 2.2.3 and 2.1.7 are vulnerable to an issue where the \"secureValidation\" property is not passed correctly when creating a KeyInfo from a KeyInfoReference element. This allows an attacker to abuse an XPath Transform to extract any local .xml files in a RetrievalMethod element."
+    }
+
+
+// https://mvnrepository.com/artifact/org.springframework.security/spring-security-test
+    testImplementation("org.springframework.security:spring-security-test")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation 'io.rest-assured:spring-mock-mvc'
+    // https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc-kotlin-extensions
+    testImplementation("io.rest-assured:spring-mock-mvc-kotlin-extensions")
+
+    testImplementation "org.testcontainers:junit-jupiter:1.19.1"
+    testImplementation 'org.testcontainers:mssqlserver:1.19.1'
+    testImplementation "io.mockk:mockk:1.13.8"
+    testImplementation "org.springframework.kafka:spring-kafka-test"
+    testImplementation "com.ninja-squad:springmockk:4.0.2"
+
+}
+
+tasks.register('copyRuntimeLibs', Copy) {
+    into "lib"
+    from configurations.default
+}
+
+tasks.test {
+    // ...
+    jvmArgs(
+            "--add-opens", "java.base/java.lang.reflect=ALL-UNNAMED"
+    )
+}
+
+def copyClientBuild = tasks.register("copyClientBuild", Copy) {
+    group = "build"
+    description = "Copy client dist in public resources"
+    dependsOn("client:build")
+    from("client/dist") {
+        include("/**/**")
+    }
+
+    into( layout.buildDirectory.dir("resources/main/static"))
+}
+
+["bootRun", "test", "resolveMainClassName"].each {
+    tasks.named(it).configure {
+        mustRunAfter(copyClientBuild)
+    }
+}
+
+["bootJar", "jar"].each {
+    tasks.named(it).configure {
+        dependsOn(copyClientBuild)
+    }
+}
+
+tasks.named("clean").configure {
+    mustRunAfter(tasks.named("bootJar"))
+}
+
+subprojects {
+    sonarqube {
+        properties {
+            property "sonar.sources", "src"
+            property "sonar.exclusions", "**/*.test.ts"
+            property "sonar.javascript.lcov.reportPaths", "coverage/lcov.info"
+        }
+    }
+}

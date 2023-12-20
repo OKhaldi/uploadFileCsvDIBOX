@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="com/altima/lib/logging/logback-default.xml"/>
+
+    <!-- On peut spécifier pour chaque logger quel niveau de log souhaité -->
+    <logger name="com.altima" level="INFO"/>
+
+    <logger name="org.zalando.logbook" level="OFF"/>
+
+    <logger name="org.springframework" level="WARN"/>
+    <!--<logger name="org.springframework.security.saml" level="DEBUG"/>-->
+    <logger name="com.zaxxer.hikari" level="WARN"/>
+    <logger name="org.ehcache" level="WARN"/>
+    <logger name="akka" level="ERROR"/>
+
+    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.security.saml2" level="WARN"/>
+    <logger name="org.opensaml" level="WARN"/>
+
+    <!-- if you need to debug security
+    <logger name="org.springframework.security.web" level="TRACE" />
+    <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory" level="OFF" />
+    -->
+</configuration>

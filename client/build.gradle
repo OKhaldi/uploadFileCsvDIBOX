@@ -1,0 +1,37 @@
+plugins {
+  id "com.github.node-gradle.node" version "7.0.1"
+}
+
+node {
+  download = true
+  version = "16.20.2"
+  yarnVersion = "1.22.19"
+  workDir = file("${project.projectDir}/.gradle/nodejs")
+}
+
+tasks.register("build") {
+  group = "Build"
+  description = "Build client project"
+  dependsOn("yarn_run_build")
+}
+
+tasks.register("run") {
+  group = "Run"
+  description = "Run client project"
+  dependsOn("yarn_run_start")
+}
+
+task yarnUpgrade(type: YarnTask, dependsOn: 'yarnSetup') {
+  description = "Upgrade Yarn Version"
+  args = ['set', 'version', '3.6.4']
+}
+
+// tasks.register("test") {
+//   group = "Test"
+//   description = "Test client project"
+//   dependsOn("yarn_run_test")
+// }
+
+tasks.register("clean_heavy_folders", Delete) {
+  delete 'node_modules', 'dist/assets'
+}

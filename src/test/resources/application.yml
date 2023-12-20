@@ -1,0 +1,5 @@
+application:
+  name: echo-test
+  env: integration-test
+
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <title>Echo</title>
+  </head>
+  <body style="margin: 0; padding: 0; height: 100%">
+
+    <form method="POST" action="http://localhost:9089/api/v1/me" enctype="multipart/form-data" >
+      <div style="margin-top: 50px; margin-left: 30px;">
+        Destination:
+        <input type="text" value="/javaTpoint" name="destination"/>
+        <br/><br/>
+        CSV Déstockage :
+        <br/><br/>
+        <input type="file" name="file" id="file" />
+      </div>
+      <div style="margin-top: 50px; margin-left: 30px;">
+        CSV Destribution en annomalie  :
+        <br/><br/>
+        <input type="file" name="file2" id="file2" />
+        <input style="height: 30px;width: 70px;" type="submit" value="Upload" name="upload" id="upload" />
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+application:
+  env: local
+  client:
+    hot-reload: true
+    location: http://localhost:5173
+  inputDir: ${inputDir:C:\\csv\\}
+  outputDir: ${outputDir:false}
+server:
+  port: ${PORT:9089}
+
+dibox:
+  url: http://10.0.4.53/
+  login: dibox
+  password: dibox
+
+spring:
+  #  validate-on-migrate: false
+  kafka:
+    bootstrap-servers: 10.0.4.52:9092
+    consumer:
+      group-id: "echo-consumers-dev-group"
+      topic: "dev.api-recorder"
+      auto-offset-reset: earliest
+  security:
+    basic:
+      enabled: false
+  management:
+    security:
+      enabled: false
+role:
+  list: adm,dev
+  adm: GG_ELK_ADM # just for tests, use GG_TOKEN_ADM
+  adm.scopes: '*'
+  dev: GL_DEV_LNX
+  dev.scopes: '*'
+
+connection:
+  mode: SSO
+
+react:
+  app:
+    agora:
+      url: https://agora.maif.fr
+    darva:
+      url: https://pro-vabf.darva.com/controller/loginTransparent
+      login: 27316vabf
+      password: 27316vabf
+      service: S084
+    compliance:
+      fileUrl: /livrables/fiche-conformite/fiche-conformite-001-SNAPSHOT.xlsx
+    ged:
+      user: altima
+      password: altima
+    kiamo:
+      url: https://kiamo-app-rct.altima-assurances.fr/
+    prima_claims:
+      url: http://SRV-DEV-PRIMA-DEV:8284/primaclaims-front-end
+    prima_insure:
+      url: http://SRV-DEV-PRIMA-DEV:9284/altimasi
+    prima_v9:
+      url: http://SRV-DEV-PRIMA-DEV.altima.local:6284/primainsure
+    assurfleet:
+      url: http://10.0.4.72:8101
+    pwyd:
+      url: http://SRV-DEV-API.altima.local:8082
+    kofax:
+      url: http://srv-dev-kta.altima.local/TotalAgility/forms/altima/LogonFormAltima.form
+    sefas:
+      autologin:
+        url: http://srv-dev-edq.altima.local:9081/hcs/rest/api/1/json/login?name=ser&password=ser

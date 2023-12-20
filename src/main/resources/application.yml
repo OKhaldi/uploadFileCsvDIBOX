@@ -1,0 +1,92 @@
+application:
+  env: ${APP_ENV:dev}
+  name: altima-echo
+  client:
+    hot-reload: ${CLIENT_HOT_RELOAD:false}
+    location: ${CLIENT_LOCATION:null}
+  monitoring:
+    endpoint-mappings: /api/v1/ping
+  inputDir: ${inputDir:false}
+  outputDir: ${CLIENT_HOT_RELOAD:false}
+server:
+  port: ${PORT:8085}
+  forward-headers-strategy: native
+
+dibox:
+  url: http://10.0.4.53/
+  login: dibox
+  password: dibox
+
+spring:
+  # saml2 security configuration
+  kafka:
+    bootstrap-servers: ${KAFKA_HOSTS_AND_PORTS}
+    consumer:
+      group-id: ${ECHO_KAFKA_CONSUMER_GROUP_ID}
+      topic: ${KAFKA_TOPIC_APIRECORDER}
+      auto-offset-reset: earliest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, loggers, metrics, mappings, threaddump, heapdump, flyway, httptrace, jolokia
+  endpoint:
+    health:
+      show-components: always
+      show-details: always
+
+
+logbook:
+  write:
+    max-body-size: 150
+  minimum-status: 200
+  include:
+    - /api/**
+
+tracer:
+  aspect.enabled: true
+  async.enabled: true
+  filter.enabled: true
+  logging:
+    enabled: true
+    category: org.zalando.tracer.Tracer
+  mdc.enabled: true
+  scheduling.enabled: true
+  traces:
+    X-Flow-ID: flow-id
+
+connection:
+  mode: SSO
+
+react:
+  app:
+    agora:
+      url: https://agora.maif.fr
+    darva:
+      url: https://pro-vabf.darva.com/controller/loginTransparent
+      login: 27316vabf
+      password: 27316vabf
+      service: S084
+    compliance:
+      fileUrl: /livrables/fiche-conformite/fiche-conformite-001-SNAPSHOT.xlsx
+    ged:
+      user: altima
+      password: altima
+    kiamo:
+      url: https://kiamo-app-rct.altima-assurances.fr/
+    prima_claims:
+      url: http://SRV-DEV-PRIMA-DEV:8284/primaclaims-front-end
+    prima_insure:
+      url: http://SRV-DEV-PRIMA-DEV:9284/altimasi
+    prima_v9:
+      url: http://SRV-DEV-PRIMA-DEV.altima.local:6284/primainsure
+    assurfleet:
+      url: http://10.0.4.72:8101
+    pwyd:
+      url: http://SRV-DEV-API.altima.local:8082
+    kofax:
+      url: http://srv-dev-kta.altima.local/TotalAgility/forms/altima/LogonFormAltima.form
+    sefas:
+      autologin:
+        url: http://srv-dev-edq.altima.local:9081/hcs/rest/api/1/json/login?name=ser&password=ser
